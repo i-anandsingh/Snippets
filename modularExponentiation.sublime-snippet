@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+int modular_exponentitation(int a, int b, int p){
+	long long res = 1;
+	a %= p;
+	while(b){
+		if(b&1)
+			res = (res * (long long)a)%p;
+        x = ((long long)a * (long long)a)%p;
+		b >>= 1;
+	}
+	res += p;
+	return (int)res%p;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>modular</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+class Triplet{
+public:
+	int x, y, gcd;
+};
+
+Triplet gcdExtended(int a, int b){
+	if(b == 0){
+		Triplet ans;
+		ans.x = 1;
+		ans.y = 0;
+		ans.gcd = a;
+		return ans;
+	}
+	Triplet ans = gcdExtended(b, a%b);
+	Triplet result;
+	result.gcd = ans.gcd;
+	result.x = ans.y;
+	result.y = ans.x - (ans.y*(a/b));
+	return result;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gcdExtended</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
