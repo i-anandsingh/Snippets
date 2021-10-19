@@ -1,0 +1,78 @@
+<snippet>
+	<content><![CDATA[
+int n, q;
+vector<int> a;
+struct item{
+  //data to be entered
+  int a;
+};
+
+struct st{
+  int s;
+  vector<item> t;
+
+  void init(int n){
+    t.resize(4*n);
+  }
+
+  item Neutral_Element = INT_MAX;
+  item merge(item x, item y){
+
+  }
+
+  item single(int n){
+    return n;
+  }
+
+  void build(int node, int b, int e){
+      if (b == e){
+        t[node] = single(a[b]);
+        return;
+      }
+      int mid = (b + e) >> 1, l = node << 1, r = l | 1;
+      build(l, b, mid);
+      build(r, mid + 1, e);
+      t[node] = merge(t[l], t[r]);
+    }
+
+    void upd(int node, int b, int e, int i, int val){
+      if (b > i || e < i) return;
+      if (b == e && b == i) {
+        t[node] = single(val);
+        return;
+      }
+      int mid = (b + e) >> 1, l = node << 1, r = l | 1;
+      if(i <= mid)
+        upd(l, b, mid, i, val);
+      else
+        upd(r, mid + 1, e, i, val);
+      t[node] = merge(t[l], t[r]);
+  }
+
+  item query(int node, int b, int e, int i, int j) {
+      if (b > j || e < i) return Neutral_Element;
+      if (b >= i && e <= j) return t[node];
+      int mid = (b + e) >> 1, l = node << 1, r = l | 1;
+      item L = query(l, b, mid, i, j);
+      item R = query(r, mid + 1, e, i, j);
+      return merge(L, R);
+  }
+
+  item query(int l, int r){
+    return query(1, 1, n, l, r);
+  }
+
+  void upd(int idx, int v){
+    upd(1, 1, n, idx, v);
+  }
+
+  void build(){
+    build(1, 1, n);
+  }
+} t;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>ST</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
